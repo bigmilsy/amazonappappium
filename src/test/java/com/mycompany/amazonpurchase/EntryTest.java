@@ -5,6 +5,8 @@
  */
 package com.mycompany.amazonpurchase;
 
+import com.mycompany.pages.EntryPage;
+import com.mycompany.pages.HamburgerMenu;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -25,7 +27,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 public class EntryTest {
     public DesiredCapabilities caps;
+    public TestData testData;    
     public EntryTest() {
+        testData = new TestData();
     }
     
     @BeforeClass
@@ -45,7 +49,6 @@ public class EntryTest {
         caps.setCapability("udid", "ce08171813a36e3e027e"); //Device ID from adb devices
         caps.setCapability("platformName", "Android");
         caps.setCapability("platformVersion", "9.0");
-//com.amazon.mShop.android.shopping/com.amazon.mShop.home.web.MShopWebGatewayActivity
         caps.setCapability("appPackage", "com.amazon.mShop.android.shopping");
         caps.setCapability("appActivity", "com.amazon.mShop.splashscreen.StartupActivity");
         caps.setCapability("noReset", "true");
@@ -63,9 +66,17 @@ public class EntryTest {
     public void testMain() {
         try {            
             AppiumDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
-            
+            EntryPage entryPage = new EntryPage(driver);
+            entryPage.assertPage(testData);
+            entryPage.clickHamburgerMenu();
         
-            
+            HamburgerMenu hamburgerMenu = new HamburgerMenu(driver);
+            hamburgerMenu.assertPage(testData);
+            hamburgerMenu.clickSignIn();
+
+
+            //close app
+            //driver.closeApp();
         } catch (MalformedURLException e) {
             System.out.println(e.getMessage());
         } catch (IOException e) {
