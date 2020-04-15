@@ -1,3 +1,5 @@
 EntryPage_Assert_Text,What are you looking for?
 HamburgerMenu_Assert_Text,Hello. Sign In
-SearchPage_TestData_SearchCriteria, 65-inch TV
+SearchPage_TestData_SearchCriteria,65-inch TV
+SigninPage_TestData_Username,dalemillertester@protonmail.com
+SigninPage_TestData_Password,PurpleHorse34

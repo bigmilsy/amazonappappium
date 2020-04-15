@@ -23,12 +23,33 @@ public class SigninPage {
     public SigninPage (AppiumDriver<MobileElement> drv) {
         this.driver = drv;
     }
-    public void assertPage(TestData testData) {
-        //Check to ensure the initial search text view contains "What are you looking for?"
+    public void typeUsernameClickContinue(TestData testData) {
+        //first, touch page to ensure native elements are loaded
         WebDriverWait wait = new WebDriverWait(driver,30);            
-        String xpath = "//android.widget.EditText[@resource-id='com.amazon.mShop.android.shopping:id/rs_search_src_text']";
+        String xpath = "//android.view.View[@text='Welcome']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
-        String testText = driver.findElement(By.xpath(xpath)).getText();
-        assertEquals(testData.data.get("EntryPage_Assert_Text"), testText);
-    }    
+        driver.findElement(By.xpath(xpath)).click();
+        
+        //type in the username
+        xpath = "//android.widget.EditText[@resource-id='ap_email_login']";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
+        driver.findElement(By.xpath(xpath)).sendKeys(testData.data.get("SigninPage_TestData_Username"));
+        
+        //click continue button
+        xpath = "//android.widget.Button[@resource-id='continue']";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
+        driver.findElement(By.xpath(xpath)).click();
+    }
+    public void typePasswordClickSignIn(TestData testData) {
+        //type in the password
+        WebDriverWait wait = new WebDriverWait(driver,30); 
+        String xpath = "//android.widget.EditText[@resource-id='ap_password']";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
+        driver.findElement(By.xpath(xpath)).sendKeys(testData.data.get("SigninPage_TestData_Password"));
+
+        xpath = "//android.widget.Button[@resource-id='signInSubmit']";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
+        //driver.findElement(By.xpath(xpath)).click();        
+    }
+    
 }

@@ -39,89 +39,72 @@ public class SearchPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
         driver.findElement(By.xpath(xpath)).sendKeys(testData.data.get("SearchPage_TestData_SearchCriteria") + "\n");               
     }
-    public void swipeUpToShowResults() {
-        //We swipe up to shwo the native elements within the web view
-        Point value = null;
+    public void swipeUpToShowResults(TestData testData) {
+        //We swipe up to show the native elements within the web view
+//        Point value = null;
         String xpath1 = "//android.webkit.WebView[@class='android.webkit.WebView']";
         WebDriverWait wait = new WebDriverWait(driver,30);                    
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath1)));
-        value = driver.findElement(By.xpath(xpath1)).getLocation();
-        int x = value.x;
-        int y = value.y;
-        int y1 = y-100;
-        
+
+        int x = testData.deviceWidth / 2;
+        int y = testData.deviceHeight - 1000;
+        int y1 = y - 100;
         TouchAction action = new TouchAction(driver);
         action.press(PointOption.point(x,y))
         .waitAction(new WaitOptions().withDuration(Duration.ofMillis(3000)))
         .moveTo(PointOption.point(x, y1))
         .release()
-        .perform();        
+        .perform();
+
     }
-    public void selectAndClickProduct() {
+    public TestData selectAndClickProduct(TestData testData) {
+
+        //Select the parent View with product list inside
         WebDriverWait wait = new WebDriverWait(driver,30);            
         String xpath = "//android.view.View[@resource-id='search']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))); 
         MobileElement ele1 = driver.findElement(By.xpath(xpath));
+
+        //Return back a list of all products.
         String xpath2 = "//android.view.View[@class='android.view.View']";
-        List<MobileElement> list1 = ele1.findElements(By.xpath(xpath2));
-        
-        System.out.println("SIZE: " + list1.size());
-        
+        List<MobileElement> list1 = ele1.findElements(By.xpath(xpath2));        
+
+        //Select on products with the word 'TV' inside
         Iterator it = list1.iterator();
         MobileElement ele;
+        MobileElement ele2;
         String tempStr = new String();
         List<MobileElement> list2 = new LinkedList<>();
         while(it.hasNext()) {
             ele = (MobileElement)it.next();
             tempStr = ele.getText();
-            if (tempStr.contains("TV")) {
+            if (tempStr.contains("TV") && tempStr.contains("$")) {
                 list2.add(ele);
             }
         }
-        /*it = list2.iterator();
-        while (it.hasNext()) {
-            ele = (MobileElement)it.next();
-            System.out.println(ele.getText());
-        }*/
-        
+
+        //Select a random product from the list
         Random rand = new Random();
         int randInt = rand.nextInt(list2.size());
         ele = (MobileElement)list2.get(randInt);
-        System.out.println(ele.getText());
-        System.out.println(ele.getAttribute("clickable"));
-
+        
+        //gather up product data to verify on next screens
+        testData.productDetails = ele.getText();
+        System.out.println("Product Details: " + testData.productDetails);
+        
+        
+        //Scroll down the product list until the selected product comes into view
         Point valueProduct = null;
-        valueProduct = ele.getLocation();
-        System.out.println("Prod X: " + valueProduct.getX());
-        System.out.println("Prod Y: " + valueProduct.getY());
-
-        Point webViewValue = null;
-        String xpath1 = "//android.webkit.WebView[@class='android.webkit.WebView']";
-        webViewValue = driver.findElement(By.xpath(xpath1)).getLocation();
-        System.out.println("Web X: " + webViewValue.getX());
-        System.out.println("Web Y: " + webViewValue.getY());        
-
-        int webX = webViewValue.getX();
-        int webY = webViewValue.getY();
-        int prodX = valueProduct.getX();
-        int prodY = valueProduct.getY();
-       
-        Point value = null;
-        value = driver.findElement(By.xpath(xpath1)).getLocation();
-        int x = value.x;
-        int y = value.y;
+        int prodY;
+        int x = testData.deviceWidth / 2;
+        int y = testData.deviceHeight - 1000;
         int y1 = y-500;
         for (int q = 0 ; q < 20 ; q++) {
             TouchAction action = new TouchAction(driver);
             action.press(PointOption.point(x,y))
             .waitAction(new WaitOptions().withDuration(Duration.ofMillis(1000)))
-            .moveTo(PointOption.point(x, y1))
-            .release()
-            .perform();
-
+            .moveTo(PointOption.point(x, y1)).release().perform();            
             valueProduct = ele.getLocation();
-            System.out.println("Clickable: " + ele.getAttribute("focusable"));
-            System.out.println("Prod Y: " + valueProduct.getY());            
             prodY = valueProduct.getY();
             if (prodY < 2000) {
                 System.out.println("PRODUCT IS IN VIEW");
@@ -130,45 +113,8 @@ public class SearchPage {
             
         }
 
-        ele.click();                    
-        
-/*        Point value = null;
-        String xpath1 = "//android.webkit.WebView[@class='android.webkit.WebView']";
-        value = driver.findElement(By.xpath(xpath1)).getLocation();
-        int x = value.x;
-        int y = value.y;
-        int y1 = y-500;
-        for (int q = 0 ; q < 50 ; q++) {
-            if (ele.isDisplayed() == false) {
-                TouchAction action = new TouchAction(driver);
-                action.press(PointOption.point(x,y))
-                .waitAction(new WaitOptions().withDuration(Duration.ofMillis(3000)))
-                .moveTo(PointOption.point(x, y1))
-                .release()
-                .perform();                                                            
-                System.out.println("NOT FOUND");
-            } else {
-                System.out.println("FOUND!!!");
-                ele.click();
-            }
-
-        }*/
-        
-        
-
-        
-        /*for (int x = 0 ; x < 10 ; x++) {
-            if (ele.isDisplayed() == false) {
-
-            } else {
-                System.out.println("IS DISPLAYED");
-            }
-        }*/
-        
-
-
-        //Point value = ele.getLocation();
-        
-
+        //click the product
+        ele.click();
+        return testData;
     }
 }

@@ -27,18 +27,4 @@ public class MoviesAndTvPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
         driver.findElement(By.xpath(xpath)).click();                
     }
-/*    public void clickHamburgerMenu() {
-        //Click the hamburger menu on the entry page
-        WebDriverWait wait = new WebDriverWait(driver,30);            
-        String xpath = "//android.widget.ImageView[@resource-id='com.amazon.mShop.android.shopping:id/chrome_action_bar_burger_icon']";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
-        driver.findElement(By.xpath(xpath)).click();        
-    }
-    public void clickSignIn() {
-        //Click the signin option
-        WebDriverWait wait = new WebDriverWait(driver,30);            
-        String xpath = "//android.widget.TextView[@resource-id='com.amazon.mShop.android.shopping:id/gno_greeting_text_view']";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
-        driver.findElement(By.xpath(xpath)).click();        
-    }*/
 }

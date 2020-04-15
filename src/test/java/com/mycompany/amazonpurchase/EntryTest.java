@@ -8,6 +8,7 @@ package com.mycompany.amazonpurchase;
 import com.mycompany.pages.EntryPage;
 import com.mycompany.pages.HamburgerMenu;
 import com.mycompany.pages.MoviesAndTvPage;
+import com.mycompany.pages.ProductViewPage;
 import com.mycompany.pages.SearchPage;
 import com.mycompany.pages.SigninPage;
 import io.appium.java_client.AppiumDriver;
@@ -38,7 +39,7 @@ public class EntryTest {
     public DesiredCapabilities caps;
     public TestData testData;    
     public EntryTest() {
-        testData = new TestData();
+        
     }
     
     @BeforeClass
@@ -77,6 +78,9 @@ public class EntryTest {
     public void testMain() {
         try {            
             AppiumDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
+            
+            testData = new TestData(driver);
+            
             EntryPage entryPage = new EntryPage(driver);
             entryPage.assertPage(testData);
             entryPage.clickHamburgerMenu();
@@ -92,15 +96,15 @@ public class EntryTest {
 
             SearchPage searchPage = new SearchPage(driver);
             searchPage.typeSearchCriteria(testData);
-            searchPage.swipeUpToShowResults();
-            searchPage.selectAndClickProduct();
+            searchPage.swipeUpToShowResults(testData);
+            testData = searchPage.selectAndClickProduct(testData);
+
+            ProductViewPage productViewPage = new ProductViewPage(driver);
+            productViewPage.clickBuyNow(testData);                       
             
-            //moviesAndTvPage.clickHamburgerMenu();
-            //moviesAndTvPage.clickSignIn();
-            
-            
-            //SigninPage signinPage = new SigninPage(driver);
-            //signinPage.assertPage(testData);
+            SigninPage signinPage = new SigninPage(driver);
+            signinPage.typeUsernameClickContinue(testData);
+            signinPage.typePasswordClickSignIn(testData);
             //close app
             //driver.closeApp();
         } catch (MalformedURLException e) {
