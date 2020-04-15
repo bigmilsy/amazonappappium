@@ -41,6 +41,49 @@ public class EntryTest {
     public EntryTest() {
         
     }
+    @Test
+    public void testMain() {
+        try {            
+            AppiumDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
+            
+            testData = new TestData(driver);
+            
+            EntryPage entryPage = new EntryPage(driver);
+            entryPage.assertPage(testData);
+            entryPage.clickHamburgerMenu();
+        
+            HamburgerMenu hamburgerMenu = new HamburgerMenu(driver);
+            hamburgerMenu.assertPage(testData);
+            hamburgerMenu.clickShopByDepartment();
+            hamburgerMenu.swipeDownFromElectronics();
+            hamburgerMenu.clickMoviesAndTv();
+
+            MoviesAndTvPage moviesAndTvPage = new MoviesAndTvPage(driver);
+            moviesAndTvPage.assertPage(testData);
+            moviesAndTvPage.clickSearchButton();
+
+            SearchPage searchPage = new SearchPage(driver);
+            searchPage.typeSearchCriteria(testData);
+            searchPage.swipeUpToShowResults(testData);
+            //Product details are gathered here for assertion later
+            testData = searchPage.selectAndClickProduct(testData);
+
+            ProductViewPage productViewPage = new ProductViewPage(driver);
+            productViewPage.assertDataAndclickBuyNow(testData);                       
+            
+            SigninPage signinPage = new SigninPage(driver);
+            signinPage.assertPage(testData);
+            signinPage.typeUsernameClickContinue(testData);
+            signinPage.typePasswordClickSignIn(testData);
+
+            //close app
+            driver.closeApp();
+        } catch (MalformedURLException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());            
+        }                     
+    }    
     
     @BeforeClass
     public static void setUpClass() {
@@ -63,55 +106,10 @@ public class EntryTest {
         caps.setCapability("appActivity", "com.amazon.mShop.splashscreen.StartupActivity");
         caps.setCapability("noReset", "true");
         caps.setCapability("automationName", "UiAutomator1");
-        //caps.setCapability("autoWebview", "true");
-        //caps.setCapability(MobileCapabilityType.AUTO_WEBVIEW, true);
     }
     
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of main method, of class Entry.
-     */
-    @Test
-    public void testMain() {
-        try {            
-            AppiumDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), caps);
-            
-            testData = new TestData(driver);
-            
-            EntryPage entryPage = new EntryPage(driver);
-            entryPage.assertPage(testData);
-            entryPage.clickHamburgerMenu();
-        
-            HamburgerMenu hamburgerMenu = new HamburgerMenu(driver);
-            hamburgerMenu.assertPage(testData);
-            hamburgerMenu.clickShopByDepartment();
-            hamburgerMenu.swipeDownFromElectronics();
-            hamburgerMenu.clickMoviesAndTv();
-
-            MoviesAndTvPage moviesAndTvPage = new MoviesAndTvPage(driver);
-            moviesAndTvPage.clickSearchButton();
-
-            SearchPage searchPage = new SearchPage(driver);
-            searchPage.typeSearchCriteria(testData);
-            searchPage.swipeUpToShowResults(testData);
-            testData = searchPage.selectAndClickProduct(testData);
-
-            ProductViewPage productViewPage = new ProductViewPage(driver);
-            productViewPage.clickBuyNow(testData);                       
-            
-            SigninPage signinPage = new SigninPage(driver);
-            signinPage.typeUsernameClickContinue(testData);
-            signinPage.typePasswordClickSignIn(testData);
-            //close app
-            //driver.closeApp();
-        } catch (MalformedURLException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());            
-        }                     
     }
     
 }

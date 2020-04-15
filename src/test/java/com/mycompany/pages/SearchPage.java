@@ -58,7 +58,6 @@ public class SearchPage {
 
     }
     public TestData selectAndClickProduct(TestData testData) {
-
         //Select the parent View with product list inside
         WebDriverWait wait = new WebDriverWait(driver,30);            
         String xpath = "//android.view.View[@resource-id='search']";
@@ -90,8 +89,7 @@ public class SearchPage {
         
         //gather up product data to verify on next screens
         testData.productDetails = ele.getText();
-        System.out.println("Product Details: " + testData.productDetails);
-        
+        System.out.println("Product Details: " + testData.productDetails);        
         
         //Scroll down the product list until the selected product comes into view
         Point valueProduct = null;

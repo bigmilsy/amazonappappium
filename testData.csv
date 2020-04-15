@@ -1,5 +1,7 @@
 EntryPage_Assert_Text,What are you looking for?
 HamburgerMenu_Assert_Text,Hello. Sign In
+MoviesAndTvPage_Assert_Text,Movies and TV Shows
+SigninPage_Assert_Text,Create account. New to Amazon?
 SearchPage_TestData_SearchCriteria,65-inch TV
 SigninPage_TestData_Username,dalemillertester@protonmail.com
 SigninPage_TestData_Password,PurpleHorse34

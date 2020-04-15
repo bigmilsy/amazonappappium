@@ -28,7 +28,7 @@ public class HamburgerMenu {
         this.driver = drv;
     }
     public void assertPage(TestData testData) {
-        //check to ensure that no users are currently logged in.
+        //check to ensure we see "Hello. Sign In"
         WebDriverWait wait = new WebDriverWait(driver,30);            
         String xpath = "//android.widget.TextView[@resource-id='com.amazon.mShop.android.shopping:id/gno_greeting_text_view']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            

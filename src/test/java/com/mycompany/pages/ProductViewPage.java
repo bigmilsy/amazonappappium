@@ -28,7 +28,7 @@ public class ProductViewPage {
     public ProductViewPage(AppiumDriver<MobileElement> drv) {
         this.driver = drv;
     }
-    public void clickBuyNow(TestData testData) {
+    public void assertDataAndclickBuyNow(TestData testData) {
         //Wait until the WebView has been loaded
         String xpath1 = "//android.webkit.WebView[@class='android.webkit.WebView']";
         WebDriverWait wait = new WebDriverWait(driver,30);                    
@@ -43,10 +43,7 @@ public class ProductViewPage {
         .waitAction(new WaitOptions().withDuration(Duration.ofMillis(1000)))
         .moveTo(PointOption.point(x, y1))
         .release()
-        .perform();
-
-        
-     
+        .perform();     
         
         //find the Buy Now button if it exists
         MobileElement ele = null;
@@ -86,6 +83,9 @@ public class ProductViewPage {
         assertTrue(testData.productDetails.contains(productPrice));
 
         //Click the Buy Now button
+        String xpath = "//android.view.View[@resource-id='buyNowCheckout']";            
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
+        ele = driver.findElement(By.xpath(xpath));
         ele.click();
     }
 }

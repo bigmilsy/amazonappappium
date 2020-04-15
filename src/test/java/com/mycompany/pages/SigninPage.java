@@ -23,6 +23,14 @@ public class SigninPage {
     public SigninPage (AppiumDriver<MobileElement> drv) {
         this.driver = drv;
     }
+    public void assertPage(TestData testData) {
+        //check to ensure we see the right headers "Create account. New to Amazon?"
+        WebDriverWait wait = new WebDriverWait(driver,30);            
+        String xpath = "//android.view.View[@resource-id='register_accordion_header']";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
+        String testText = driver.findElement(By.xpath(xpath)).getText();
+        assertEquals(testData.data.get("SigninPage_Assert_Text"), testText);        
+    }
     public void typeUsernameClickContinue(TestData testData) {
         //first, touch page to ensure native elements are loaded
         WebDriverWait wait = new WebDriverWait(driver,30);            
@@ -49,6 +57,7 @@ public class SigninPage {
 
         xpath = "//android.widget.Button[@resource-id='signInSubmit']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));            
+        //END OF TEST HERE....don't actually click login
         //driver.findElement(By.xpath(xpath)).click();        
     }
     
