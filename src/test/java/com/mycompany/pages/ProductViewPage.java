@@ -72,8 +72,7 @@ public class ProductViewPage {
             if (prodY < 2000) {
                 System.out.println("BUTTON IS IN VIEW");
                 q = 20;
-            }
-            
+            }            
         }
 
         //VerifyData

@@ -41,7 +41,6 @@ public class SearchPage {
     }
     public void swipeUpToShowResults(TestData testData) {
         //We swipe up to show the native elements within the web view
-//        Point value = null;
         String xpath1 = "//android.webkit.WebView[@class='android.webkit.WebView']";
         WebDriverWait wait = new WebDriverWait(driver,30);                    
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath1)));
@@ -68,7 +67,7 @@ public class SearchPage {
         String xpath2 = "//android.view.View[@class='android.view.View']";
         List<MobileElement> list1 = ele1.findElements(By.xpath(xpath2));        
 
-        //Select on products with the word 'TV' inside
+        //Select a products with the word 'TV' inside
         Iterator it = list1.iterator();
         MobileElement ele;
         MobileElement ele2;
