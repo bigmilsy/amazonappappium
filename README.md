@@ -1,1 +1,22 @@
-"# amazonappappium" 
+# Appium Test Automation
+## Introduction
+Several technologies are needed in order to effectively use test automation against mobile phone devices. As suggested, Appium has been selected as the main tool to use for test automation and the Amazon App has been used to test against.<br /><br />
+The test execution flow will navigate to the Movies & TV Department, then click the search icon, enter in the test data “65-inch TV”, select a random search result, view the product page, click “Buy Now” and finally perform a login sequence.
+## Main Files
+**[EntryTest.java](https://github.com/bigmilsy/amazonappappium/blob/master/src/test/java/com/mycompany/amazonpurchase/EntryTest.java)**<br /><br />
+This is the main testing script file that is executed when the user clicks run tests. The method testMain() is what contains the actual test automation script. The class is designed using the POM, or Page Object Model, meaning it is easy to read and maintain. The more complex webdriver and appium code is contained within the various Page class’s, with each page corresponding to an activity screen within the app under test.<br /><br />
+**[TestData.csv](https://github.com/bigmilsy/amazonappappium/blob/master/testData.csv)**<br /><br />
+Every test script must contain test data in some shape or form. This csv file contains the test data, which is used through the Automation test at various stages.<br /><br />
+**[com.mycompany.pages](https://github.com/bigmilsy/amazonappappium/tree/master/src/test/java/com/mycompany/pages)**<br /><br />
+Each of the pages within the com.mycomapny.pages package contains a .java file for each of the screens or activities that are used within the test automation. This follows a Page Object Model methodology. It is within each of these pages that the real automation code is placed, which can often look complex and difficult to read. The advantage is when the user interface would change, causing a script to fail, the automation tester has a single place to re-write and to fix the script. Similarly, the advantage of re-using the code within each page is obvious, meaning setting up further test scripts that use the same pages is much faster and simpler a task.<br /><br />
+## Testing Framework / Technology Stack
+**NetBeans 8.2:** The main IDE used for this appium android testing is NetBeans. NetBeans is a free download and is developed by Apache. NetBeans allows for more simple creation of software, particularly when developing test scripts.<br /><br />
+**Appium & WebDriver:** The main driver of the automation tests, the Appium server allows for the connection between android studio and Selenium WebDriver. This means that common commands that are available within the web driver technologies, such as finding web elements and controlling these element, can be re-used for automation against mobile phone apps running on android. The downloadable appium java class libraries also contain the Selenium WebDriver components with the maven build automation tool allowing for easy importing into the test automation code.<br /><br />
+**Android Studio 3.6.1:** Android Studio is required to work with Appium and to communicate with an attached or an emulated android device. In particular, the adb, or the Android Debug Bridge, that comes with the SDK tools as part of android studio, is often used during the test automation process.<br /><br />
+**Android:** The android operating system was selected to execute automated test against, running on a Samsung Galaxy S8 Note mobile phone.<br /><br />
+**Java 1.8:** The programming language selected for building the appium test is Java. Java allows for simple integration with the appium libraries as well as providing the JUnit testing framework.<br /><br />
+**Maven:** Another Apache tool, maven is a build automation tool and in particular allows for much easier integration of dependant libraries such as Appium and Selenium WebDriver.<br /><br />
+**JUnit:** A testing framework harness that comes free with NetBeans. The appium scripting and programming is contained within executable JUnit class’s. This allows for extra functionality for passing and failing test case’s and works well with WebDriver types of technologies.<br /><br />
+## Screen Shots
+![App Screen Shots](https://github.com/bigmilsy/amazonappappium/blob/master/app_screens.png)
+![IDE Screen Shots](https://github.com/bigmilsy/amazonappappium/blob/master/IDE_screen.png)
